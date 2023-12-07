@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic; using System.Linq;
+using System.Web; using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class _Default : System.Web.UI.Page
+ 
+
+{
+protected void Page_Load(object sender, EventArgs e)
+{
+
+}
+
+protected void btn_result_Click(object sender, EventArgs e)
+{
+Calendar1.Caption = "T.Y.IT";
+Calendar1.FirstDayOfWeek = FirstDayOfWeek.Sunday; Calendar1.NextPrevFormat = NextPrevFormat.ShortMonth; Calendar1.TitleFormat = TitleFormat.Month;
+
+Label2.Text = "Todays Date" + Calendar1.TodaysDate.ToShortDateString(); Label3.Text = "Ganpati Vacation Start: 10-13-2021";
+TimeSpan d = new DateTime(2021, 10, 13) - DateTime.Now;
+Label4.Text = "Days Remaining For Ganpati Vacation:" + d.Days.ToString(); TimeSpan d1 = new DateTime(2021, 12, 31) - DateTime.Now;
+Label5.Text = "Days Remaining for New Year:" + d1.Days.ToString(); if (Calendar1.SelectedDate.ToShortDateString() == ("10-13-2021");
+Label3.Text = "<b>Ganpati Festival Start</b>";
+if (Calendar1.SelectedDate.ToShortDateString() == "10-23-2021") Label3.Text = "<b>Ganpati Festival End</b>";
+}
+
+protected void btnreset_Click(object sender, EventArgs e)
+{
+Label1.Text = ""; Label2.Text = ""; Label3.Text = ""; Label4.Text = ""; Label5.Text = "";
+Calendar1.SelectedDates.Clear();
+}
+
+}
+protected void Calendar1_SelectionChanged(object sender, EventArgs e)
+{
+Label1.Text = "your selected date " + Calendar1.SelectedDate.Date.ToString();
+}
+protected void Calendar1_DayRender(object sender, DayRenderEventArgs e)
+{
+if (e.Day.Date.Day == 5 && e.Day.Date.Month == 9)
+{
+e.Cell.BackColor = System.Drawing.Color.Yellow; Label lbl = new Label();
+lbl.Text = "<br>Teachers Day!"; 
+e.Cell.Controls.Add(lbl);
+
+}
+
+
+if (e.Day.Date.Day == 13 && e.Day.Date.Month == 9)
+{
+Calendar1.SelectedDate = new DateTime(2018, 9, 12); Calendar1.SelectedDates.SelectRange(Calendar1.SelectedDate, Calendar1.SelectedDate.AddDays(10));
+ 
+Label lbl1 = new Label(); lbl1.Text = "<br>Ganpati!"; e.Cell.Controls.Add(lbl1);
+}
+}
+}
