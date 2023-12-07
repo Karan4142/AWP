@@ -1,0 +1,42 @@
+Default.aspx.cs
+
+using System;
+using System.Collections.Generic; using System.Linq;
+using System.Web; using System.Web.UI;
+using System.Web.UI.WebControls; using System.Data;
+using System.Data.SqlClient; using System.Configuration;
+public partial class _Default : System.Web.UI.Page
+{
+protected void Page_Load(object sender, EventArgs e)
+{
+
+}
+protected void Button1_Click(object sender, EventArgs e)
+{
+string connstr = ConfigurationManager.ConnectionStrings["connstr"].ConnectionString; SqlConnection con = new SqlConnection(connstr);
+SqlDataAdapter sda = new SqlDataAdapter(); DataSet ds = new DataSet();
+using (SqlConnection conn = new SqlConnection(connstr))
+{
+SqlCommand cmd = new SqlCommand("select * from customer", conn); cmd.CommandType = CommandType.Text;
+sda.SelectCommand = cmd; sda.Fill(ds, "country"); GridView1.DataSource = ds.Tables[0]; GridView1.DataBind();
+}
+}
+}
+
+Default.aspx
+
+<?xml version="1.0"?>
+<!--
+For more information on how to configure your ASP.NET application, please visit http://go.microsoft.com/fwlink/?LinkId=169433
+-->
+<configuration>
+ 
+
+<system.web>
+<compilation debug="true" targetFramework="4.5"/>
+<httpRuntime targetFramework="4.5"/>
+</system.web>
+<connectionStrings>
+<add name="connstr" connectionString="Data Source=.;Initial Catalog=db;Integrated Security=True"/>
+</connectionStrings>
+</configuration>
