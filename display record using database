@@ -1,0 +1,73 @@
+Default.aspx.cs
+
+using System;
+using System.Collections.Generic; using System.Linq;
+using System.Web; using System.Web.UI;
+using System.Web.UI.WebControls; using System.Data;
+using System.Data.SqlClient; using System.Configuration;
+public partial class_Default :System.Web.UI.Page
+{
+protected voidPage_Load(object sender, EventArgs e)
+{
+
+}
+protected void Button1_Click(object sender, EventArgs e)
+{
+String connstr = ConfigurationManager.ConnectionStrings["connstr"].ConnectionString; SqlConnection con = new SqlConnection(connstr);
+con.Open();
+SqlCommand cmd = new SqlCommand("select * from abc", con); SqlDataReader sdr = cmd.ExecuteReader();
+
+while (sdr.Read())
+{
+Label1.Text += sdr["name"].ToString()+"	"+sdr["id"].ToString()+"</br>" ;
+}
+sdr.Close();
+con.Close();
+}
+}
+
+
+
+Default.aspx
+
+<%@PageLanguage="C#"AutoEventWireup="true"CodeFile="Default.aspx.cs"Inherits="_Def ault"%>
+
+<!DOCTYPE.html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ 
+
+<head runat="server">
+<title></title>
+</head>
+<body>
+<form id="form1"runat="server">
+<div>
+
+<asp:Label ID="Label1"runat="server"Text="customer details:"></asp:Label>
+<br/>
+<br/>
+<asp:Button ID="Button1"runat="server"OnClick="Button1_Click"Text="display"/>
+
+</div>
+</form>
+</body>
+</html>
+
+
+Web.config
+
+<?xmlversion="1.0"?>
+<!--
+For more information on how to configure your ASP.NET application, please visit http://go.microsoft.com/fwlink/?LinkId=169433
+-->
+<configuration>
+<system.web>
+<compilation debug="true"targetFramework="4.5"/>
+<httpRuntime targetFramework="4.5"/>
+</system.web>
+<connectionStrings>
+<add name="connstr" connectionString="Data Source=.;Initial Catalog=db; Integrated Security=True"/>
+</connectionStrings>
+
+</configuration>
