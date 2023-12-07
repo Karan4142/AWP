@@ -1,0 +1,56 @@
+Default.aspx
+
+<%@PageLanguage="C#"AutoEventWireup="true"CodeFile="Default.aspx.cs"Inherits="_Def ault"%>
+
+<!DOCTYPEhtml>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<title></title>
+</head>
+<body>
+<form id="form1"runat="server">
+<div>
+
+<asp:DropDownList ID="DropDownList1"runat="server" DataSourceID="SqlDataSource1"DataTextField="cname"DataValueField="country">
+</asp:DropDownList>
+<asp:SqlDataSource ID="SqlDataSource1"runat="server"ConnectionString="<%$ ConnectionStrings:dbConnectionString4 %>"SelectCommand="SELECT * FROM [customer]"></asp:SqlDataSource>
+<br/>
+<br/>
+<asp:Button ID="Button1"runat="server"OnClick="Button1_Click"Text="OK"/>
+<br/>
+<br/>
+<asp:Label ID="Label1"runat="server"Text="you have to selected:"></asp:Label>
+
+</div>
+</form>
+</body>
+</html>
+
+Default.aspx.cs
+
+using System;
+using System.Collections.Generic; using System.Linq;
+using System.Web; using System.Web.UI;
+using System.Web.UI.WebControls; using System.Data;
+using System.Data.SqlClient;
+ 
+
+using System.Configuration;
+public partial class_Default :System.Web.UI.Page
+{
+protected void Page_Load(object sender, EventArgs e)
+{
+
+}
+Protected void Button1_Click(object sender, EventArgs e)
+{
+Label1.Text = "The country you have selected is:" + DropDownList1.SelectedValue; if(IsPostBack==false)
+{
+string connstr=ConfigurationManager.ConnectionStrings["connstr"].ConnectionString; SqlConnection con=new SqlConnection(connstr);
+SqlCommand cmd = new SqlCommand("Select Distinct country from customer",con ); con.Open();
+SqlDataReader reader = cmd.ExecuteReader(); DropDownList1.DataSource = reader; DropDownList1.DataTextField = "country"; DropDownList1.DataBind();
+reader.Close(); con.Close();
+}
+}
+}
