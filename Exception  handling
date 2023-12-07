@@ -1,0 +1,18 @@
+using System;
+class Program
+{
+    static void Main()
+    {
+        string[] colors = { "Red", "Blue", "Green" };
+
+        try
+        {
+            // code that may raise an exception 
+            Console.WriteLine(colors[5]);
+        }
+        catch (IndexOutOfRangeException e)
+        {
+            Console.WriteLine("An exception occurred: " + e.Message);
+        }
+    }
+}
