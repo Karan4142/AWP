@@ -1,0 +1,75 @@
+Default.aspx
+<%@PageLanguage="C#"AutoEventWireup="true"CodeFile="Default.aspx.cs"Inherits="_Def
+ault"%>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<title></title>
+</head>
+<body>
+<form id="form1"runat="server">
+<div>
+
+<asp:TextBox ID="TextBox1"runat="server"Height="48px"TextMode="MultiLine" Width="206px"></asp:TextBox>
+<br/>
+<br/>
+<asp:Button ID="Button1"runat="server"OnClick="Button1_Click"Text="ok"/>
+<br/>
+<br/>
+<asp:TextBox ID="TextBox2"runat="server"Height="130px"TextMode="MultiLine" Width="275px"></asp:TextBox>
+
+</div>
+</form>
+</body>
+</html>
+
+
+Default.aspx.cs
+
+using System;
+using System.Collections.Generic; using System.Linq;
+using System.Web; using System.Web.UI;
+using System.Web.UI.WebControls; using System.Data;
+using System.Data.SqlClient; using System.Configuration;
+public partial class_Default :System.Web.UI.Page
+{
+ 
+
+protected voidPage_Load(object sender, EventArgs e)
+{
+
+}
+protected void Button1_Click(object sender, EventArgs e)
+{
+String connstr = ConfigurationManager.ConnectionStrings["connstr"].ConnectionString; SqlConnection con = new SqlConnection(connstr);
+con.Open();
+SqlCommand cmd = new SqlCommand(TextBox1.Text,con); SqlDataReader sdr = cmd.ExecuteReader();
+TextBox2.Text = ""; while (sdr.Read())
+{
+TextBox2.Text += Environment.NewLine; for (inti = 0; i<sdr.FieldCount; i++)
+TextBox2.Text += sdr[i].ToString().PadLeft(15);
+}
+sdr.Close();
+con.Close();
+}
+}
+
+
+Web.config
+
+<?xml version="1.0"?>
+<!--
+For more information on how to configure your ASP.NET application, please visit http://go.microsoft.com/fwlink/?LinkId=169433
+-->
+<configuration>
+<system.web>
+<compilation debug="true"targetFramework="4.5"/>
+<httpRuntime targetFramework="4.5"/>
+</system.web>
+<connectionStrings>
+<add name="connstr"connectionString="Data Source=.;InitialCatalog=db;Integrated Security=True"/>
+</connectionStrings>
+
+</configuration> 
