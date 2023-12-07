@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic; using System.Linq;
+using System.Web; using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class _Default : System.Web.UI.Page
+{
+protected void Page_Load(object sender, EventArgs e)
+{
+
+}
+protected void Button1_Click1(object sender, EventArgs e)
+{
+lblresult.Text += "Name:" + txtname.Text + "</br>" + "Address:" + txtaddress.Text + "</br>";
+
+if (rbmale.Checked == true)
+lblresult.Text += "Gender:" + rbmale.Text + "</br>"; else
+lblresult.Text += "Gender:" + rbfemale.Text + "</br>";
+
+
+for (int i = 0; i < RadioButtonList1.Items.Count; i++)
+{
+if (RadioButtonList1.Items[i].Selected)
+lblresult.Text += "Subjects:"+RadioButtonList1.Text + "</br>";
+}
+
+for (int i = 0; i < CheckBoxList1.Items.Count; i++)
+{
+if (CheckBoxList1.Items[i].Selected)
+ 
+
+lblresult.Text += "Vehicles:"+CheckBoxList1.Text + "</br>";
+}
+
+
+for (int i = 0; i < DropDownList1.Items.Count; i++)
+{
+if (DropDownList1.Items[i].Selected)
+lblresult.Text +="Fruits:"+ DropDownList1.Text + "</br>";
+}
+}
+}
